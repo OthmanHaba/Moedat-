@@ -3,7 +3,23 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import BroadCamp from "@/Components/BroadCamp.vue";
 import InfoCard from "@/Components/InfoCard.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {ref} from "vue";
+import TableHead from "@/Components/TableComponent/TableHead.vue";
+import TableCell from "@/Components/TableComponent/TableCell.vue";
+import TableHeadCell from "@/Components/TableComponent/TableHeadCell.vue";
+import TableRow from "@/Components/TableComponent/TableRow.vue";
+import {Link} from "@inertiajs/vue3";
+import TableComponent from "@/Components/TableComponent.vue";
 
+const props = defineProps({
+    drivers: {
+        type: Array,
+        required: true,
+        default: () => []
+    }
+})
+
+const drivers = ref(props.drivers);
 </script>
 
 <template>
@@ -14,75 +30,90 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
                 {text:'Drivers' , link :'/drivers'},
             ]"/>
         </template>
-        <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:flex-row gap-6 max-w-screen-xl">
-
-            <info-card :title="'available  Drivers'" :count="4"/>
-
-            <info-card :title="'Total Unavailable:'" :count="3"/>
+        <div class="flex flex-col w-full lg:flex-row">
+            <div class="grid grid-cols-2 gap-6 lg:w-3/4">
+                <info-card title="Available Drivers" count="4"/>
+                <info-card title="Unavailable Drivers" count="3"/>
+            </div>
+            <div class="flex justify-end items-center w-1/4 lg:w-1/4">
+                <Link :href="route('drivers.create')" type="button"
+                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+                    Add New Driver
+                </Link>
+            </div>
         </div>
-
 
         <div class="mt-10">
             <div class="overflow-x-auto rounded-lg shadow-md">
-                <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Driver Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Driver Age
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Driver Phone Number
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            salary pre hour
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            salary pre day
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            salary pre month
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actions
-                        </th>
-                    </tr>
-                    </thead>
+                <TableComponent class="w-full text-sm  text-gray-500 dark:text-gray-400">
+                    <TableHead :classes="'bg-gray-300'">
+                        <tr>
+                            <TableHeadCell>
+                                Driver Name
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                Driver Age
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                Driver Phone Number
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                salary pre hour
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                salary pre day
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                salary pre month
+                            </TableHeadCell>
+                            <TableHeadCell>
+                                Actions
+                            </TableHeadCell>
+                        </tr>
+                    </TableHead>
                     <tbody>
-                    <tr class="border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">othamn</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">12</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">12334</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">120$</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">420</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">1200</a>
-                        </td>
-                        <td class="px-6 py-4 text-right">
+                    <TableRow v-for="driver in drivers" :key="driver.id">
+                        <TableCell class="px-6 py-4 text-center">
+                            <p class="font-medium text-black dark:text-blue-500 hover:underline">
+                                {{ driver.name }}</p>
+                        </TableCell>
+                        <TableCell>
+                            <p class="font-medium text-black dark:text-blue-500 hover:underline">
+                                {{ driver.age }}</p>
+                        </TableCell>
+                        <TableCell>
+                            <p class="font-medium text-black dark:text-white hover:underline">
+                                {{ driver.phone }}</p>
+                        </TableCell>
+                        <TableCell>
+                            <p class="font-medium text-black dark:text-white hover:underline">
+                                {{ driver.hourly_rating }}</p>
+                        </TableCell>
+                        <TableCell>
+                            <p class="font-medium text-black dark:text-white hover:underline">
+                                {{ driver.daily_rating }}</p>
+                        </TableCell>
+                        <TableCell>
+                            <p class="font-medium text-black dark:text-white hover:underline">
+                                {{ driver.monthly_rating }}</p>
+                        </TableCell>
+                        <TableCell>
                             <div class="flex gap-2 items-center justify-center">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    <font-awesome-icon icon="fa fa-edit"/>
-                                </a>
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500">
-                                    <font-awesome-icon class=" hover:text-blue-500" icon="fa fa-delete"/>
-                                </a>
+                                <Link :href="route('drivers.edit',driver.id)">
+                                    <div class="text-blue-400 hover:text-blue-600">
+                                        <font-awesome-icon :icon="['fas', 'pen-to-square']"/>
+                                    </div>
+                                </Link>
+                                <Link href="#" class="font-medium text-blue-300 dark:text-blue-600  hover:text-red-900">
+                                    <div class="text-red-500 hover:text-red-950">
+                                        <font-awesome-icon icon="trash"/>
+                                    </div>
+                                </Link>
                             </div>
-                        </td>
-                    </tr>
+                        </TableCell>
+                    </TableRow>
                     </tbody>
-                </table>
+                </TableComponent>
             </div>
         </div>
     </AppLayout>

@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Driver;
+use App\Models\Machine;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +20,11 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'admin@admin.com',
         ]);
+
+        Driver::factory(10)->create();
+
+        Machine::factory(10)->create();
     }
 }

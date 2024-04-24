@@ -22,7 +22,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('drivers', \App\Http\Controllers\DriverController::class)->only(['index', 'show', 'store', 'destroy', 'edit']);
+    Route::resource('drivers', \App\Http\Controllers\DriverController::class)->only(['index', 'create', 'show', 'store', 'destroy', 'edit']);
+    Route::resource('machines', \App\Http\Controllers\MachineController::class)->only(['index', 'create', 'show', 'store', 'destroy', 'edit']);
 });
 
 

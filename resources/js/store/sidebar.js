@@ -11,7 +11,7 @@ export const items = [
     },
     {
         label: 'Machines',
-        href: `#`,
+        href: route('machines.index'),
         iconName: 'car'
     },
     {

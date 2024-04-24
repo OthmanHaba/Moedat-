@@ -13,9 +13,13 @@ class DriverController extends Controller
      */
     public function index()
     {
+        $drivers = Driver::all();
         return Inertia::render(
             'Driver/index'
-        );
+            ,
+            [
+                'drivers' => $drivers
+            ]);
     }
 
     /**
@@ -23,7 +27,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Driver/create');
     }
 
     /**
@@ -31,7 +35,16 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required|numeric',
+            'phone' => 'required|string|max:255',
+            'hourly_rating' => 'required|numeric',
+            'daily_rating' => 'required|numeric',
+            'monthly_rating' => 'required|numeric',
+        ]);
+        Driver::create($request->all());
+        return to_route('drivers.index');
     }
 
     /**

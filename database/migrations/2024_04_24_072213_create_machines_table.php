@@ -10,15 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('drivers', function (Blueprint $table) {
+        Schema::create('machines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('age');
-            $table->string('phone');
-            $table->double('hourly_rating');
-            $table->double('daily_rating');
-            $table->double('monthly_rating');
-            $table->boolean('status')->default(false);
+            $table->string('category');
+            $table->boolean('availability')->default(true);
+            $table->decimal('rental_price', 8, 2);
+            $table->string('location');
+            $table->string('condition');
+            $table->date('purchase_date')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('drivers');
+        Schema::dropIfExists('machines');
     }
 };
