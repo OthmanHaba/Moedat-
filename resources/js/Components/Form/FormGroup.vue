@@ -3,8 +3,8 @@ const props = defineProps({
     label: String,
     inputType: String,
     errors: {
-        type: Array,
-        default: () => []
+        type: String,
+        default:''
     },
 })
 const model = defineModel();

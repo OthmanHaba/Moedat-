@@ -109,7 +109,7 @@ const props = defineProps({
 
                         <TableCell class="px-6 py-4 text-center">
                             <p class="font-medium text-black dark:text-blue-500 ">
-                                <img class="h-16 w-16" :src="machine.image" alt="no"></p>
+                                <img class="h-16 w-16" :src=" machine.image" alt="no image"></p>
                         </TableCell>
 
 

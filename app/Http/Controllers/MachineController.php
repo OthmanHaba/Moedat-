@@ -13,8 +13,9 @@ class MachineController extends Controller
      */
     public function index()
     {
+        $machines = Machine::all();
         return Inertia::render('Machine/index', [
-            'machines' => fn() => Machine::all()->except('description'),
+            'machines' => $machines,
         ]);
     }
 
@@ -23,7 +24,7 @@ class MachineController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Machine/create');
     }
 
     /**
@@ -31,7 +32,35 @@ class MachineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'category' => 'required|string',
+            'rental_price' => 'required|numeric',
+            'location' => 'required|string',
+            'condition' => 'required|string',
+            'purchase_date' => 'required|date',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $imageURL = $this->saveImage($request);
+        Machine::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'rental_price' => $request->rental_price,
+            'location' => $request->location,
+            'condition' => $request->condition,
+            'purchase_date' => $request->purchase_date,
+            'image' => $imageURL,
+        ]);
+
+        return to_route('machines.index');
+    }
+
+    public function saveImage($request)
+    {
+        $imageName = $request->name . '.' . $request->file('image')->extension();
+        $path = $request->file('image')->storePubliclyAs('public/machines', $imageName);
+        return asset('storage/machines/' . $imageName);
     }
 
     /**
