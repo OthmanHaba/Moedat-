@@ -16,7 +16,7 @@ export const items = [
     },
     {
         label: 'Contracts',
-        href: `#`,
+        href: route('contracts.index'),
         iconName: 'fa-solid fa-file-contract'
     },
 ];

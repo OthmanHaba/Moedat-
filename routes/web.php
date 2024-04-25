@@ -24,6 +24,8 @@ Route::middleware([
 
     Route::resource('drivers', \App\Http\Controllers\DriverController::class)->only(['index', 'create', 'show', 'store', 'destroy', 'edit']);
     Route::resource('machines', \App\Http\Controllers\MachineController::class)->only(['index', 'create', 'show', 'store', 'destroy', 'edit']);
+    Route::resource('contracts', \App\Http\Controllers\ContractController::class)->only(['index', 'create', 'show', 'store', 'destroy', 'edit']);
+
 });
 
 
