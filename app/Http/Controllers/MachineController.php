@@ -39,7 +39,7 @@ class MachineController extends Controller
             'location' => 'required|string',
             'condition' => 'required|string',
             'purchase_date' => 'required|date',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $imageURL = $this->saveImage($request);
@@ -51,6 +51,7 @@ class MachineController extends Controller
             'condition' => $request->condition,
             'purchase_date' => $request->purchase_date,
             'image' => $imageURL,
+
         ]);
 
         return to_route('machines.index');
